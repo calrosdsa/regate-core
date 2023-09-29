@@ -1,7 +1,7 @@
 package main
 
 import (
-	"core_app/core/modules"
+	"regate-core/core/modules"
 	"database/sql"
 	"fmt"
 	"time"
