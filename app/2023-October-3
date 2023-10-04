@@ -1,0 +1,8 @@
+time="2023-10-03T07:54:00-05:00" level=error msg="pq: current transaction is aborted, commands ignored until end of transaction block" file=billing_usecase method=CreateDeposito
+time="2023-10-03T08:03:02-05:00" level=error msg="pq: current transaction is aborted, commands ignored until end of transaction block" file=billing_usecase method=CreateDeposito
+time="2023-10-03T08:04:00-05:00" level=error msg="pq: current transaction is aborted, commands ignored until end of transaction block" file=billing_usecase method=CreateDeposito
+time="2023-10-03T08:06:00-05:00" level=error msg="pq: current transaction is aborted, commands ignored until end of transaction block" file=billing_usecase method=CreateDeposito
+time="2023-10-03T08:07:00-05:00" level=error msg="pq: current transaction is aborted, commands ignored until end of transaction block" file=billing_usecase method=CreateDeposito
+time="2023-10-03T08:09:04-05:00" level=error msg="pq: column \"currency_id\" does not exist" file=billing_usecase method=CreateDeposito
+time="2023-10-03T15:09:46-05:00" level=error msg="pq: could not determine data type of parameter $1" file=billing_usecase.go method=GetDepositosEmpresa
+`

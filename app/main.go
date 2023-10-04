@@ -7,6 +7,10 @@ import (
 	"time"
 
 	"log"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+
 	_ "github.com/lib/pq"
 
 
@@ -44,7 +48,15 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	modules.InitModules(db)
+	creds := credentials.NewStaticCredentials(viper.GetString("AWS_ID"), viper.GetString("AWS_SECRET"), "")
+	sess, err := session.NewSession(&aws.Config{
+		Region:      aws.String("sa-east-1"),
+		Credentials: creds,
+	})
+	if err != nil {
+		log.Println("FAIL TO CONNECT AWS",err)
+	}
+	modules.InitModules(db,sess)
 
 	defer db.Close()
 }
