@@ -22,6 +22,16 @@ func NewUseCase(timeout time.Duration,empresaRepo r.EmpresaRepository,
 		mediaU: mediaU,
 	}
 }
+func (u *empresaUseCase)GetEmpresa(ctx context.Context,uuid string)(res r.Empresa,err error){
+	ctx,cancel := context.WithTimeout(ctx,u.timeout)
+	defer cancel()
+	res,err = u.empresaRepo.GetEmpresa(ctx,uuid)
+	if err != nil{
+		u.utilU.LogError("GetEmpresa","empresa_usecase.go",err.Error())
+		return 
+	}
+	return
+}
 func (u *empresaUseCase)GetUuidEmpresa(ctx context.Context,id int)(uuid string,err error){
 	ctx,cancel := context.WithTimeout(ctx,u.timeout)
 	defer cancel()

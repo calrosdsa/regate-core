@@ -1,0 +1,3 @@
+time="2023-10-05T10:03:14-05:00" level=error msg="pq: column \"longitud\" does not exist" file=empresa_usecase.go method=CreaeteEmpresa
+time="2023-10-05T10:05:13-05:00" level=error msg="sql: expected 9 destination arguments in Scan, not 7" file=empresa_usecase.go method=CreaeteEmpresa
+time="2023-10-05T10:47:25-05:00" level=error msg="sql: Scan error on column index 8, name \"st_x\": converting NULL to string is unsupported" file=empresa_usecase.go method=GetEmpresa

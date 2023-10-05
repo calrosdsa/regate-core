@@ -32,13 +32,22 @@ func (p *empresaRepo) CreateEmpresa(ctx context.Context,d *r.Empresa)(err error)
 func (p *empresaRepo) GetEmpresasByEstado(ctx context.Context,estado r.EmpresaEstado)(res []r.Empresa,err error){
 	if estado == 0 {
 		query := `select empresa_id,uuid,name,created_at from empresas;`
-		res,err = p.fetchEmpresas(ctx,query,estado)
+		res,err = p.fetchEmpresas(ctx,query)
 		return
 	}else {
 		query := `select empresa_id,uuid,name,created_at from empresas where estado = $1`
 		res,err = p.fetchEmpresas(ctx,query,estado)
 		return
 	}
+}
+
+func (p *empresaRepo) GetEmpresa(ctx context.Context,uuid string)(res r.Empresa,err error){
+	query := `select empresa_id,uuid,name,estado,created_at,email,phone_number,
+	address,ST_X(geog::geometry),ST_Y(geog::geometry) from empresas
+	where uuid = $1`
+	err = p.Conn.QueryRowContext(ctx,query,uuid).Scan(&res.Id,&res.Uuid,&res.Name,&res.Estado,&res.CreatedAt,&res.Email,
+		&res.PhoneNumber,&res.Address,&res.Longitud,&res.Latidud)
+	return	
 }
 // func (p *empresaRepo) GetDepositos(ctx context.Context,d r.DepositoFilterData,page int16,size int8) (res []r.DepositoBancario, 
 // 	count int,err error) {

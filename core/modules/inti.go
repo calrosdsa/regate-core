@@ -25,6 +25,10 @@ import (
 	_cronjobR "regate-core/core/modules/system/cronjob/repository/pg"
 	_cronjobU "regate-core/core/modules/system/cronjob/usecase"
 
+	_infoHttpDelivery "regate-core/core/modules/system/info/delivery/http"
+	_infoR "regate-core/core/modules/system/info/repository/pg"
+	_infoU "regate-core/core/modules/system/info/usecase"
+
 	_billingHttpDelivery "regate-core/core/modules/billing/delivery/http"
 	_billingR "regate-core/core/modules/billing/repository/pg"
 	_billingU "regate-core/core/modules/billing/usecase"
@@ -70,6 +74,10 @@ func InitModules(db *sql.DB,sess *session.Session){
 	cronjobR :=  _cronjobR.NewRepository(db)
 	cronjobU := _cronjobU.NewUseCase(timeout,cronjobR,salaU,s)
 	_cronjobHttpDelivery.NewHandler(e,cronjobU,utilU)
+
+	infoR :=  _infoR.NewRepository(db)
+	infoU := _infoU.NewUseCase(timeout,infoR,utilU)
+	_infoHttpDelivery.NewHandler(e,infoU)
 
 	empresaR :=  _empresaR.NewRepository(db)
 	empresaU := _empresaU.NewUseCase(timeout,empresaR,utilU,mediaU)

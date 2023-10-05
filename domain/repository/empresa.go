@@ -6,12 +6,14 @@ type EmpresaUseCase interface {
 	GetEmpresasByEstado(ctx context.Context,estado EmpresaEstado)(res []Empresa,err error)
 	CreateEmpresa(ctx context.Context,d *Empresa)(err error)
 	GetUuidEmpresa(ctx context.Context,id int)(uuid string,err error)
+	GetEmpresa(ctx context.Context,uuid string)(res Empresa,err error)
 }
 
 type EmpresaRepository interface {
 	GetEmpresasByEstado(ctx context.Context,estado EmpresaEstado)(res []Empresa,err error)
 	CreateEmpresa(ctx context.Context,d *Empresa)(err error)
 	GetUuidEmpresa(ctx context.Context,id int)(uuid string,err error)
+	GetEmpresa(ctx context.Context,uuid string)(res Empresa,err error)
 }
 
 type Empresa struct {
@@ -25,8 +27,8 @@ type Empresa struct {
 	Estado EmpresaEstado `json:"estado"`
 	Email        *string   `json:"email,omitempty"`
 	Address      *string   `json:"address,omitempty"`
-	Latidud      string     `json:"latitud,omitempty"`
-	Longitud     string     `json:"longitud,omitempty"`
+	Latidud      *string     `json:"latitud,omitempty"`
+	Longitud     *string     `json:"longitud,omitempty"`
 }
 
 

@@ -22,7 +22,29 @@ func NewHandler(e *echo.Echo,empresaU r.EmpresaUseCase){
 	}
 	e.GET("v1/empresas/",handler.GetEmpresasByEstado)
 	e.POST("v1/empresa/",handler.CreateEmpresa)
+	e.GET("v1/empresa/:uuid/",handler.GetEmpresa)
 }
+
+func (h *EmpresaHandler)GetEmpresa(c echo.Context)(err error){
+	auth := c.Request().Header["Authorization"][0]
+	token := _jwt.GetToken(auth)
+	_, err = _jwt.ExtractClaimsAdmin(token)
+	if err != nil {
+		return c.JSON(http.StatusUnauthorized, r.ResponseMessage{Message: err.Error()})
+	}
+	ctx := c.Request().Context()
+	if err != nil {
+		return c.JSON(http.StatusUnauthorized, r.ResponseMessage{Message: err.Error()})
+	}
+	uuid := c.Param("uuid")
+	res,err := h.empresaU.GetEmpresa(ctx,uuid)
+	 if err != nil {
+		return c.JSON(http.StatusBadRequest, r.ResponseMessage{Message: err.Error()})
+	}
+	return c.JSON(http.StatusOK,res)
+}
+
+
 
 func (h *EmpresaHandler)CreateEmpresa(c echo.Context)(err error){
 	auth := c.Request().Header["Authorization"][0]
