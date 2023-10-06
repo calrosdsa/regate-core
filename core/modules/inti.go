@@ -79,6 +79,10 @@ func InitModules(db *sql.DB,sess *session.Session){
 	infoU := _infoU.NewUseCase(timeout,infoR,utilU)
 	_infoHttpDelivery.NewHandler(e,infoU)
 
+	establecimientoR :=  _empresaR.NewEstablecimientoRepository(db)
+	establecimientoU := _empresaU.NewEmpresaUseCase(timeout,establecimientoR,utilU)
+	_empresaHttpDelivery.NewEstablecimientoHandler(e,establecimientoU)
+
 	empresaR :=  _empresaR.NewRepository(db)
 	empresaU := _empresaU.NewUseCase(timeout,empresaR,utilU,mediaU)
 	_empresaHttpDelivery.NewHandler(e,empresaU)
