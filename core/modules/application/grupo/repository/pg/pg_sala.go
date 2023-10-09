@@ -19,7 +19,7 @@ func NewRepository(conn *sql.DB) r.SalaRepository{
 }
 func (p *salaRepo) DisabledExpiredRooms(ctx context.Context){
 	// log.Println(time.Now().UTC())
-	query := `update salas set estado = $1 where horas[0]::timestamp <  $2`
+	query := `update salas set estado = $1 where horas[1]::timestamp <  $2`
 	_,err := p.Conn.ExecContext(ctx,query,r.SalaUnAvailable,time.Now())
 	if err != nil {
 		log.Println(err)

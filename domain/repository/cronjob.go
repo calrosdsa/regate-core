@@ -28,4 +28,5 @@ const (
 	DeleteUnAvailablesSalasTag = "delete-unavailables-salas"
 	DisabledExpiredRoomsTag = "disable-expired-rooms"
 	CreateDepositoTag = "create-deposito"
+	UpdateTsvColumn = "update-tsv-column"
 )

@@ -23,6 +23,19 @@ func ArrayToString(a []int, delim string) string {
     //return strings.Trim(strings.Join(strings.Fields(fmt.Sprint(a)), delim), "[]")
 }
 
+
+func AppendTsv(values []string)(res string){
+	for i,val := range values {
+		if i != len(values) -1 {
+			t := fmt.Sprintf("' %s '",val) + " || "
+			res = res + t
+		}else {
+			t := fmt.Sprintf("' %s '",val)
+			res = res + t
+		}
+	}
+	return
+}
 // package util
 
 // import (

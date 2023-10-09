@@ -21,7 +21,32 @@ func NewEstablecimientoHandler(e *echo.Echo,establecimientoU r.EstablecimientoUs
 		establecimientoU:establecimientoU,
 	}
 	e.GET("v1/empresa/establecimientos/:empresaUuid/",handler.GetEstablecimientosEmpresa)
+	e.GET("v1/empresa/establecimientos/util/",handler.GetUtil)
+
 }
+func (h *EstablecimientoHandler)GetUtil(c echo.Context)(err error){
+	categories := []string{"Futbol","Futbol sala"}
+	appendTsv(categories)
+	ctx := c.Request().Context()
+	err = h.establecimientoU.UpdateEstablecimientosTsv(ctx)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, r.ResponseMessage{Message: err.Error()})
+	}
+	return c.JSON(http.StatusOK,"")
+}
+
+func appendTsv(values []string){
+    var res string
+	for _,val := range values {
+		t := val + " || "
+		res = res + t
+		// values = append(values, t)
+	}
+
+	log.Println(res)
+}
+
+
 func (h *EstablecimientoHandler)GetEstablecimientosEmpresa(c echo.Context)(err error){
 	auth := c.Request().Header["Authorization"][0]
 	token := _jwt.GetToken(auth)

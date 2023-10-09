@@ -2,7 +2,7 @@ package modules
 
 import (
 	"database/sql"
-	// "regate-core/core/modules/system/cronjob"
+	"regate-core/core/modules/system/cronjob"
 	"time"
 
 	"github.com/go-co-op/gocron"
@@ -14,8 +14,8 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/session"
 
-	_salaR "regate-core/core/modules/sala/repository/pg"
-	_salaU "regate-core/core/modules/sala/use_case"
+	_salaR "regate-core/core/modules/application/sala/repository/pg"
+	_salaU "regate-core/core/modules/application/sala/use_case"
 
 	_authHttpDelivery "regate-core/core/modules/user/auth/delivery/http"
 	_authR "regate-core/core/modules/user/auth/repository/pg"
@@ -91,6 +91,6 @@ func InitModules(db *sql.DB,sess *session.Session){
 	billingU := _billingU.NewUseCase(timeout,billingR,empresaU,utilU,mediaU)
 	_billingHttpDelivery.NewHandler(e,billingU)
 	
-	// scheduling.BeginScheduling(s,salaU,billingU)
+	scheduling.BeginScheduling(s,salaU,billingU,establecimientoU)
 	e.Start("0.0.0.0:8000")
 }
