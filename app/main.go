@@ -18,12 +18,12 @@ import (
 )
 
 func init() {
-	viper.SetConfigFile(`config.json`)
+	// viper.SetConfigFile(`config.json`)
+	viper.SetConfigFile(`/home/regate/r_backend/app/config.json`)
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(err)
 	}
-
 	if viper.GetBool(`debug`) {
 		log.Println("Service RUN on DEBUG mode")
 	}
