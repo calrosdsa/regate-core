@@ -1,0 +1,3 @@
+time="2023-10-10T07:46:24-05:00" level=error msg="daskdmk samdkasmd kamsd" file=billing_usecase.go method=GetDepositosEmpresa
+time="2023-10-10T07:50:03-05:00" level=error msg="daskdmk samdkasmd kamsd" file=billing_usecase.go method=GetDepositosEmpresa
+time="2023-10-10T07:50:10-05:00" level=error msg="daskdmk samdkasmd kamsd" file=billing_usecase.go method=GetDepositosEmpresa

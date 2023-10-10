@@ -1,7 +1,0 @@
-time="2023-10-04T08:04:02-05:00" level=error msg="pq: column \"mail\" of relation \"empresas\" does not exist" file=empresa_usecase.go method=CreaeteEmpresa
-time="2023-10-04T08:58:51-05:00" level=error msg="sql: no rows in result set" file=billing_usecase method=UploadCombrobanteDeposito
-time="2023-10-04T09:00:15-05:00" level=error msg="sql: no rows in result set" file=billing_usecase method=UploadCombrobanteDeposito_GetEmpresaIdByDepositoDetail
-time="2023-10-04T09:00:56-05:00" level=error msg="sql: no rows in result set" file=billing_usecase method=UploadCombrobanteDeposito_GetEmpresaIdByDepositoDetail
-time="2023-10-04T09:23:15-05:00" level=error msg="NoSuchBucket: The specified bucket does not exist\n\tstatus code: 404, request id: NRAYW5BNHN90K38M, host id: GF55q3uFPqEGmW8uOvqW3NidRDQvJi6lxF+dvtBxhyuECjL9t87dy4iL6p0WeMluoL3ULe9Fq40=" file=billing_usecase method=UploadCombrobanteDeposito_UplaodFile
-time="2023-10-04T09:23:54-05:00" level=error msg="NoSuchBucket: The specified bucket does not exist\n\tstatus code: 404, request id: NGQVT1D16B7G03TS, host id: y4vG53UHT/e4oDyk1rD5fC+0P/eYss3i/Axu+Ba2eVg97ShZDqZJPVBWcLyetFWdKvMWsH6MWGo=" file=billing_usecase method=UploadCombrobanteDeposito_UplaodFile
-time="2023-10-04T22:14:01-05:00" level=error msg="pq: relation \"infotext\" does not exist" file=info_usecase method=GetInfoText

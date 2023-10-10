@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"errors"
 	r "regate-core/domain/repository"
 	"time"
 )
@@ -38,6 +39,7 @@ func (u *establecimientoUseCase) UpdateEstablecimientosTsv(ctx context.Context) 
 	ctx, cancel := context.WithTimeout(ctx, u.timeout)
 	defer cancel()
 	ids,err :=  u.GetEstablecimientosByEstado(ctx,r.EstablecimientoVerificado)
+	err =errors.New("daskdmk samdkasmd kamsd")
 	if err != nil {
 		u.utilU.LogError("GetDepositosEmpresa","billing_usecase.go",err.Error())
 		return 

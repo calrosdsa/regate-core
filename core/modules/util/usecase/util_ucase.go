@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 
@@ -24,7 +25,7 @@ func NewUseCase(logger *logrus.Logger)r.UtilUseCase{
 
 func (u *utilUseCase)LogError(method string,file string,err string){
 	now := time.Now()
-	t := fmt.Sprintf("%s-%s-%s", strconv.Itoa(now.Year()),now.Month().String(),strconv.Itoa(now.Day()))
+	t := fmt.Sprintf("%slog/%s-%s-%s", viper.GetString("path"),strconv.Itoa(now.Year()),now.Month().String(),strconv.Itoa(now.Day()))
 	f, errL := os.OpenFile(t, os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
 	if errL != nil {
 		logrus.Fatalf("error opening file: %v", errL)
