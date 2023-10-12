@@ -4,12 +4,6 @@ import (
 	"context"
 	"log"
 	r "regate-core/domain/repository"
-	"time"
-
-	// "time"
-
-	// "time"
-
 	"github.com/go-co-op/gocron"
 )
 // type schedulingModule struct {
@@ -18,8 +12,6 @@ import (
 
 func BeginScheduling(s *gocron.Scheduler,salaU r.SalaUseCase,billingU r.BillingUseCase,
 	establecimientoU r.EstablecimientoUseCase) {
-	loc,_ := time.LoadLocation("America/La_Paz")
-	log.Println(time.Now().In(loc))
 	s.Cron("0/15 * * * *").Tag(r.DeleteUnAvailablesSalasTag).WaitForSchedule().Do(func(){ 
 			salaU.DeleteUnAvailablesSalas(context.Background())
 		})

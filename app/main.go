@@ -19,7 +19,7 @@ import (
 
 func init() {
 	// viper.SetConfigFile(`config.json`)
-	
+
 	viper.SetConfigFile(`/home/regate/regate-core/app/config.json`)
 	err := viper.ReadInConfig()
 	if err != nil {

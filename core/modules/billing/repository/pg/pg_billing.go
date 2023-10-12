@@ -40,9 +40,11 @@ func (p *billingRepo) GetDepositosEmpresa(ctx context.Context,d r.DepositoFilter
 	}else{
 		empresaFilter = fmt.Sprintf("where empresa_id = %s",strconv.Itoa(d.EmpresaId))
 	}
-	query := fmt.Sprintf(`select d.id,d.uuid,d.empresa_id,d.created_at,
+	query := fmt.Sprintf(`select d.id,d.uuid,d.empresa_id,e.name,d.created_at,
 	(select sum(income) from deposito_bancario where parent_id = d.id)
-	from deposito_bancario_detail as d %s limit $1 offset $2
+	from deposito_bancario_detail as d
+	left join empresas as e on e.empresa_id = d.empresa_id
+	%s order by created_at desc limit $1 offset $2
     `,empresaFilter)
 	res, err = p.fetchDepositosEmpresa(ctx, query,size, page*int16(size))
 	if err != nil {
@@ -91,6 +93,7 @@ func (p *billingRepo)CreateDeposito(ctx context.Context,empresaId int)(err error
 	select coalesce(sum(r.paid),0),('Pago del dia--'),e.establecimiento_id,($1),($2),($3),current_timestamp::date
 	from establecimientos as e 
 	left join reservas as r on r.establecimiento_id = e.establecimiento_id and r.type_reserva = $4 and r.estado = $5
+	and start_date::date = current_timestamp::date - INTERVAL '1 DAY'
 	where e.empresa_id = $6 
 	group by e.establecimiento_id returning id,establecimiento_id;`
 	ids,err := p.fetchIds(conn,ctx,query,tarifa,currencyId,parentId,r.ReservaTypeApp,r.ReservaValid,empresaId)
@@ -101,7 +104,7 @@ func (p *billingRepo)CreateDeposito(ctx context.Context,empresaId int)(err error
 	for _,id := range ids {
 		query := `insert into facturacion_reserva(reserva_id,deposito_id) 
 		select r.reserva_id,$1 from reservas as r where r.establecimiento_id = $2 and r.type_reserva = $3 and r.estado = $4
-		and start_date::date = current_timestamp::date`
+		and start_date::date = current_timestamp::date - INTERVAL '1 DAY'`
 		_,err = conn.ExecContext(ctx,query,id.Id,id.EstablecimientoId,r.ReservaTypeApp,r.ReservaValid)
 		if err != nil {
 		    log.Println(err,"ERROR 4")
@@ -153,6 +156,7 @@ func (p *billingRepo) fetchDepositosEmpresa(ctx context.Context, query string, a
 			&t.Id,
 			&t.Uuid,
 			&t.EmpresaId,
+			&t.EmpresaName,
 			&t.CreatedAt,
 			&t.TotalIncome,
 		)

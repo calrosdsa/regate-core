@@ -7,7 +7,7 @@ import (
 
 type BillingUseCase interface {
 	GetDepositosEmpresa(ctx context.Context, d DepositoFilterData, page int16, size int8) (res []DepositoBancarioEmpresa, count int, nextPage int16, err error)
-	UploadComprobanteDeposito(ctx context.Context, file *multipart.FileHeader, d DepositoBancario) (url string,err error)
+	UploadComprobanteDeposito(ctx context.Context, file *multipart.FileHeader, d DepositoBancario) (url string, err error)
 	CreateDepositos(ctx context.Context)
 }
 
@@ -26,6 +26,7 @@ type DepositoBancarioEmpresa struct {
 	Id          int     `json:"id"`
 	Uuid        string  `json:"uuid"`
 	EmpresaId   int     `json:"empresa_id"`
+	EmpresaName string  `json:"empresa_name"`
 	CreatedAt   string  `json:"created_at"`
 	TotalIncome float64 `json:"total_income"`
 }
@@ -42,7 +43,7 @@ type DepositoBancario struct {
 	CurrencyAbb         string         `json:"currency_abb,omitempty"`
 	EstablecimientoId   int            `json:"establecimiento_id,omitempty"`
 	ParentId            int            `json:"parent_id,omitempty"`
-	ComprobanteUrl      string        `json:"comprobante_url,omitempty"`
+	ComprobanteUrl      string         `json:"comprobante_url,omitempty"`
 	EmitionDate         *string        `json:"emition_date"`
 	EstablecimientoName string         `json:"establecimiento_name,omitempty"`
 }
