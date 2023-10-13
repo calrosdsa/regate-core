@@ -12,10 +12,10 @@ import (
 
 func BeginScheduling(s *gocron.Scheduler,salaU r.SalaUseCase,billingU r.BillingUseCase,
 	establecimientoU r.EstablecimientoUseCase) {
-	s.Cron("0/15 * * * *").Tag(r.DeleteUnAvailablesSalasTag).WaitForSchedule().Do(func(){ 
+	s.Cron("0 0 * * *").Tag(r.DeleteUnAvailablesSalasTag).WaitForSchedule().Do(func(){ 
 			salaU.DeleteUnAvailablesSalas(context.Background())
 		})
-	s.Cron("0 0 * * *").Tag(r.DisabledExpiredRoomsTag).WaitForSchedule().Do(func(){ 
+	s.Cron("0/30 * * * *").Tag(r.DisabledExpiredRoomsTag).WaitForSchedule().Do(func(){ 
 		    salaU.DisabledExpiredRooms(context.Background())
 	})
 	s.Cron("0 0 * * *").Tag(r.CreateDepositoTag).WaitForSchedule().Do(func(){ 

@@ -65,7 +65,7 @@ func InitModules(db *sql.DB,sess *session.Session){
 	mediaU := _mediaU.NewUseCase(sess)
 
 	salaR :=  _salaR.NewRepository(db)
-	salaU := _salaU.NewSalaUseCase(salaR,timeout)
+	salaU := _salaU.NewSalaUseCase(salaR,utilU,timeout)
 
 	authR :=  _authR.NewRepository(db)
 	authU := _authU.NewUseCase(timeout,authR)

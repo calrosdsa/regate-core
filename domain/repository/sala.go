@@ -9,13 +9,13 @@ type SalaUseCase interface {
 
 type SalaRepository interface {
 	DeleteUnAvailablesSalas(ctx context.Context)
-	DisabledExpiredRooms(ctx context.Context)
+	DisabledExpiredRooms(ctx context.Context)(res []int,err error)
 }
 
 type SalaEstado int8
 
 const (
 	SalaAvailable SalaEstado = iota
-	SalaUnAvailable
+	SalaUnAvailable 
 	SalaReserved
 )
