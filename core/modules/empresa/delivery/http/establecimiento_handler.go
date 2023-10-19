@@ -5,6 +5,8 @@ import (
 	"net/http"
 	r "regate-core/domain/repository"
 	_jwt "regate-core/domain/util"
+	"strconv"
+
 	// "strconv"
 
 	// "strconv"
@@ -22,7 +24,8 @@ func NewEstablecimientoHandler(e *echo.Echo,establecimientoU r.EstablecimientoUs
 	}
 	e.GET("v1/empresa/establecimientos/:empresaUuid/",handler.GetEstablecimientosEmpresa)
 	e.GET("v1/empresa/establecimientos/util/",handler.GetUtil)
-
+	e.PUT("v1/core/establecimiento/verificar/:id/",handler.VerificarEstablecimiento)
+	e.PUT("v1/core/establecimiento/bloquear/:id/",handler.BloquearEstablecimiento)
 }
 func (h *EstablecimientoHandler)GetUtil(c echo.Context)(err error){
 	categories := []string{"Futbol","Futbol sala"}
@@ -65,3 +68,45 @@ func (h *EstablecimientoHandler)GetEstablecimientosEmpresa(c echo.Context)(err e
 	return c.JSON(http.StatusOK,res)
 }
 
+func (h *EstablecimientoHandler)VerificarEstablecimiento(c echo.Context)(err error){
+	auth := c.Request().Header["Authorization"][0]
+	token := _jwt.GetToken(auth)
+	_, err = _jwt.ExtractClaimsAdmin(token)
+	if err != nil {
+		log.Println(err)
+		return c.JSON(http.StatusUnauthorized, r.ResponseMessage{Message: err.Error()})
+	}
+	id,err :=strconv.Atoi(c.Param("id"))
+	if err != nil {
+		log.Println(err)
+		return c.JSON(http.StatusBadRequest, r.ResponseMessage{Message: err.Error()})
+	}
+	ctx := c.Request().Context()
+	err = h.establecimientoU.VerificarEstablecimiento(ctx,id)
+	 if err != nil {
+		return c.JSON(http.StatusBadRequest, r.ResponseMessage{Message: err.Error()})
+	}
+	return c.JSON(http.StatusOK,err)
+}
+
+
+func (h *EstablecimientoHandler)BloquearEstablecimiento(c echo.Context)(err error){
+	auth := c.Request().Header["Authorization"][0]
+	token := _jwt.GetToken(auth)
+	_, err = _jwt.ExtractClaimsAdmin(token)
+	if err != nil {
+		log.Println(err)
+		return c.JSON(http.StatusUnauthorized, r.ResponseMessage{Message: err.Error()})
+	}
+	id,err :=strconv.Atoi(c.Param("id"))
+	if err != nil {
+		log.Println(err)
+		return c.JSON(http.StatusBadRequest, r.ResponseMessage{Message: err.Error()})
+	}
+	ctx := c.Request().Context()
+	err = h.establecimientoU.BloquearEstablecimiento(ctx,id)
+	 if err != nil {
+		return c.JSON(http.StatusBadRequest, r.ResponseMessage{Message: err.Error()})
+	}
+	return c.JSON(http.StatusOK,err)
+}

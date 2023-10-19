@@ -90,7 +90,7 @@ func (p *billingRepo)CreateDeposito(ctx context.Context,empresaId int)(err error
 		return 
 	}
 	query = `insert into deposito_bancario(income,gloss,establecimiento_id,tarifa,currency_id,parent_id,date_paid)
-	select coalesce(sum(r.paid),0),('Pago del dia--'),e.establecimiento_id,($1),($2),($3),current_timestamp::date
+	select coalesce(sum(r.paid),0),('Pago del dia--'),e.establecimiento_id,($1),($2),($3),(current_timestamp::date - INTERVAL '1 DAY')
 	from establecimientos as e 
 	left join reservas as r on r.establecimiento_id = e.establecimiento_id and r.type_reserva = $4 and r.estado = $5
 	and start_date::date = current_timestamp::date - INTERVAL '1 DAY'

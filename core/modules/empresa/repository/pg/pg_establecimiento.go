@@ -15,11 +15,16 @@ type establecimientoRepo struct {
 }
 
 
-
 func NewEstablecimientoRepository(conn *sql.DB) r.EstablecimientoRepository{
 	return &establecimientoRepo{
 		Conn: conn,
 	}
+}
+func(p *establecimientoRepo)UpdateEstadoEstablecimiento(ctx context.Context,
+	id int,estado r.EstablecimientoEstado,visibility bool)(err error){
+	query := `update establecimientos set estado= $1 ,visibility = $2 where establecimiento_id = $3`
+	_,err = p.Conn.ExecContext(ctx,query,estado,visibility,id)
+	return
 }
 func (p *establecimientoRepo)GetEstablecimientosByEstado(ctx context.Context,estado r.EstablecimientoEstado)(res []int,err error){
 	query := `select establecimiento_id from establecimientos where estado = $1`

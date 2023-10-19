@@ -21,7 +21,18 @@ func NewEmpresaUseCase(timeout time.Duration, establecimientoRepo r.Establecimie
 		utilU:       utilU,
 	}
 }
-
+func (u *establecimientoUseCase)VerificarEstablecimiento(ctx context.Context,id int)(err error){
+	ctx, cancel := context.WithTimeout(ctx, u.timeout)
+	defer cancel()
+	err = u.establecimientoRepo.UpdateEstadoEstablecimiento(ctx,id,r.EstablecimientoVerificado,true)
+	return
+}
+func (u *establecimientoUseCase)BloquearEstablecimiento(ctx context.Context,id int)(err error){
+	ctx, cancel := context.WithTimeout(ctx, u.timeout)
+	defer cancel()
+	err = u.establecimientoRepo.UpdateEstadoEstablecimiento(ctx,id,r.EstablecimentoBloqueado,false)
+	return
+}		
 func (u *establecimientoUseCase) GetEstablecimientosEmpresa(ctx context.Context,empresaUuid string) (res []r.Establecimiento,
 	err error) {
 	ctx, cancel := context.WithTimeout(ctx, u.timeout)

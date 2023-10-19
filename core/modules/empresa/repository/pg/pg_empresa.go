@@ -24,8 +24,8 @@ func (p *empresaRepo)GetUuidEmpresa(ctx context.Context,id int)(uuid string,err 
 }
 
 func (p *empresaRepo) CreateEmpresa(ctx context.Context,d *r.Empresa)(err error){
-	query := `insert into empresas(name,phone_number,email) values($1,$2,$3) returning uuid`
-	err = p.Conn.QueryRowContext(ctx,query,d.Name,d.PhoneNumber,d.Email).Scan(&d.Uuid)
+	query := `insert into empresas(name,phone_number,email) values($1,$2,$3) returning uuid,empresa_id,created_at`
+	err = p.Conn.QueryRowContext(ctx,query,d.Name,d.PhoneNumber,d.Email).Scan(&d.Uuid,&d.Id,&d.CreatedAt)
 	return
 }
 

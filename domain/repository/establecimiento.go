@@ -33,12 +33,15 @@ type EstablecimientoRepository interface {
 	GetEstablecimientosEmpresa(ctx context.Context,empresaUuid string)(res []Establecimiento,err error)
 	GetEstablecimientosByEstado(ctx context.Context,estado EstablecimientoEstado)(res []int,err error)
 	UpdateEstablecimientoTsv(ctx context.Context,id int)(err error)
+	UpdateEstadoEstablecimiento(ctx context.Context,id int,estado EstablecimientoEstado,visibility bool)(err error)
 }
 
 type EstablecimientoUseCase interface {
 	GetEstablecimientosEmpresa(ctx context.Context,empresaUuid string)(res []Establecimiento,err error)
 	GetEstablecimientosByEstado(ctx context.Context,estado EstablecimientoEstado)(res []int,err error)
 	UpdateEstablecimientosTsv(ctx context.Context)(err error)
+	VerificarEstablecimiento(ctx context.Context,id int)(err error)
+	BloquearEstablecimiento(ctx context.Context,id int)(err error)
 }
 
 type EstablecimientoEstado int8
@@ -46,4 +49,5 @@ type EstablecimientoEstado int8
 const (
 	EstablecimientoVerificado EstablecimientoEstado = 1
 	EstablecimientoPendiente  EstablecimientoEstado = 2
+	EstablecimentoBloqueado   EstablecimientoEstado = 3
 )
