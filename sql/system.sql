@@ -18,3 +18,5 @@ create table if not exists info_text(
 );
 
 insert into info_text(title,content)values  ('Sucursal estado','{"data":[{"subtitle":"Sucursal Estados","content":"El estado de una sucursal define la disponibilidad de este"}]}');
+
+

@@ -1,0 +1,6 @@
+time="2023-11-09T22:00:00-06:00" level=error msg="sql: no rows in result set" file=billing_usecase method=CreateDeposito
+time="2023-11-09T22:00:00-06:00" level=error msg="sql: no rows in result set" file=billing_usecase method=CreateDeposito
+time="2023-11-09T22:00:00-06:00" level=error msg="sql: no rows in result set" file=billing_usecase method=CreateDeposito
+time="2023-11-09T22:00:00-06:00" level=error msg="sql: no rows in result set" file=billing_usecase method=CreateDeposito
+time="2023-11-09T22:00:00-06:00" level=error msg="sql: no rows in result set" file=billing_usecase method=CreateDeposito
+time="2023-11-09T22:00:00-06:00" level=error msg="sql: no rows in result set" file=billing_usecase method=CreateDeposito

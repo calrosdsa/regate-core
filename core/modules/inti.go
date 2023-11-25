@@ -29,6 +29,10 @@ import (
 	_infoR "regate-core/core/modules/system/info/repository/pg"
 	_infoU "regate-core/core/modules/system/info/usecase"
 
+	_notificationHttpDelivery "regate-core/core/modules/system/notification/delivery/http"
+	_notificationR "regate-core/core/modules/system/notification/repository/pg"
+	_notificationU "regate-core/core/modules/system/notification/usecase"
+
 	_billingHttpDelivery "regate-core/core/modules/billing/delivery/http"
 	_billingR "regate-core/core/modules/billing/repository/pg"
 	_billingU "regate-core/core/modules/billing/usecase"
@@ -78,6 +82,10 @@ func InitModules(db *sql.DB,sess *session.Session){
 	infoR :=  _infoR.NewRepository(db)
 	infoU := _infoU.NewUseCase(timeout,infoR,utilU)
 	_infoHttpDelivery.NewHandler(e,infoU)
+
+	notificationR :=  _notificationR.NewRepository(db)
+	notificationU := _notificationU.NewUseCase(timeout,notificationR,utilU)
+	_notificationHttpDelivery.NewHandler(e,notificationU)
 
 	establecimientoR :=  _empresaR.NewEstablecimientoRepository(db)
 	establecimientoU := _empresaU.NewEmpresaUseCase(timeout,establecimientoR,utilU)

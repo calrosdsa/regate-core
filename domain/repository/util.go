@@ -2,6 +2,8 @@ package repository
 
 import (
 	"bytes"
+
+	"github.com/segmentio/kafka-go"
 )
 
 type Ids struct {
@@ -15,6 +17,8 @@ type UtilUseCase interface {
 	LogInfo(method string, file string, err string)
 	CustomLog(method string, file string, err string, payload map[string]interface{})
 	LogFatal(method string, file string, err string, payload map[string]interface{})
+	SendMessageToKafka(w *kafka.Writer,data interface{},key string)
+
 }
 
 type MailUseCase interface {
