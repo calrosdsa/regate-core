@@ -1,0 +1,4 @@
+time="2023-11-27T08:30:02-06:00" level=error msg="dial tcp :9092: connectex: No connection could be made because the target machine actively refused it." file=sala_use_case.go method=sendSalaNotification_kafka
+time="2023-11-27T09:00:00-06:00" level=error msg="dial tcp :9092: connectex: No connection could be made because the target machine actively refused it." file=sala_use_case.go method=sendSalaNotification_kafka
+time="2023-11-27T10:30:00-06:00" level=error msg="dial tcp :9092: connectex: No connection could be made because the target machine actively refused it." file=sala_use_case.go method=sendSalaNotification_kafka
+time="2023-11-27T11:54:42-06:00" level=error msg="read tcp 172.20.20.76:59576->10.0.0.132:5432: wsarecv: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond." file=billing_usecase.go method=GetDepositosEmpresa

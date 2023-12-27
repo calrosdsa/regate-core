@@ -20,7 +20,7 @@ func NewRepository(conn *sql.DB) r.InfoRepository {
 
 func (p *pgInfo) GetInfoText(ctx context.Context,id int)(res r.InfoText,err error){
 	query := `select id,title,content from info_text where id = $1`
-	err = p.Conn.QueryRowContext(ctx,query,id).Scan(&res.Id,&res.Title,&res.Content,)
+	err = p.Conn.QueryRowContext(ctx,query,id).Scan(&res.Id,&res.Title,&res.Content)
 	return
 }
 

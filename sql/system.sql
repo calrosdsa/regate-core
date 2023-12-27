@@ -17,6 +17,17 @@ create table if not exists info_text(
     content text
 );
 
-insert into info_text(title,content)values  ('Sucursal estado','{"data":[{"subtitle":"Sucursal Estados","content":"El estado de una sucursal define la disponibilidad de este"}]}');
+insert into info_text(id,title,content)values  (1,'Sucursal estado','{"data":[{"subtitle":"Sucursal Estados","content":"El estado de una sucursal define la disponibilidad de este"}]}');
+
+insert into info_text(id,title,content)values  (2,'Intervalo de tiempo para reservar',
+'{
+	"data":[
+	{
+		"subtitle":"",
+		"content":"En esta sección de la configuración, podrás definir el intervalo de tiempo en el que los usuarios de la aplicación podrán realizar una reserva, con un mínimo de 30 minutos."
+	}
+]
+}');
+
 
 
